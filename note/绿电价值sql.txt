@@ -1,0 +1,618 @@
+-- public.tl_greenele_allo_generationallo_data definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_allo_generationallo_data;
+
+CREATE TABLE public.tl_greenele_allo_generationallo_data (
+	"year" int4 NULL, -- 年份
+	"month" int4 NULL, -- 月份
+	sub_id varchar(10) NULL, -- 结算科目ID
+	generation_id varchar(64) NULL, -- 发电企业id
+	generation varchar(128) NULL, -- 发电企业名
+	generation_extra_id varchar(64) NULL, -- 发电企业外部id
+	participant_id varchar(64) NULL, -- 零售用户市场成员ID
+	participant_name varchar(128) NULL, -- 零售用户市场成员名称
+	participant_extra_id varchar(64) NULL, -- 零售用户市场成员外部ID
+	buy_market_id varchar(255) NULL, -- buyMarketId
+	energy numeric(22, 6) NULL, -- 电量
+	price numeric(22, 6) NULL, -- 电价
+	fee numeric(22, 6) NULL, -- 电费
+	contract_sale varchar(255) NULL, -- 批发侧合同id
+	account_num varchar(64) NULL, -- 发电户号
+	account varchar(64) NULL, -- 分布式发电企业名
+	grew_name varchar(255) NULL, -- 注册机组名称
+	grew_id varchar(255) NULL, -- 机组id
+	guid varchar(255) NULL, -- guid
+	scene varchar(255) NULL, -- 场景
+	status bpchar(1) NULL DEFAULT '''0''::bpchar'::bpchar, -- 状态
+	sale_id varchar(64) NULL, -- 售电公司id
+	sale varchar(128) NULL, -- 售电公司名
+	sale_extra_id varchar(64) NULL, -- 售电公司外部id
+	application varchar(255) NULL, -- 应用
+	tenant_id int4 NULL, -- 租户ID
+	create_time timestamp NULL, -- 创建时间
+	create_user varchar(100) NULL, -- 创建者
+	create_user_account varchar NULL, -- 创建者账号
+	create_user_name varchar NULL, -- 创建者姓名
+	update_time timestamp NULL, -- 更新时间
+	update_user varchar(100) NULL, -- 更新者
+	update_user_account varchar NULL, -- 更新者账号
+	update_user_name varchar NULL, -- 更新者姓名
+	deleted int2 NULL DEFAULT 0, -- 是否删除，0否 1是
+	generation_allo_id int8 NOT NULL,
+	sale_allo_id int8 NOT NULL, -- 对应售电分配id
+	contract_customer text NULL, -- 零售侧合同id
+	sale_price numeric(22, 6) NULL, -- 绿电结算电价
+	grew_project_name varchar(255) NULL, -- 机组项目编码
+	marker_id varchar(10) NULL, -- 场景（省份）
+	CONSTRAINT pk_zjpxprod_tl_greenele_allo_generationallo_data PRIMARY KEY (generation_allo_id)
+);
+COMMENT ON TABLE public.tl_greenele_allo_generationallo_data IS '发电公司分配分配后数据表';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data."year" IS '年份';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data."month" IS '月份';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sub_id IS '结算科目ID';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.generation_id IS '发电企业id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.generation IS '发电企业名';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.generation_extra_id IS '发电企业外部id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.participant_id IS '零售用户市场成员ID';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.participant_name IS '零售用户市场成员名称';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.participant_extra_id IS '零售用户市场成员外部ID';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.buy_market_id IS 'buyMarketId';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.energy IS '电量';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.price IS '电价';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.fee IS '电费';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.contract_sale IS '批发侧合同id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.account_num IS '发电户号';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.account IS '分布式发电企业名';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.grew_name IS '注册机组名称';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.grew_id IS '机组id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.guid IS 'guid';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.scene IS '场景';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.status IS '状态';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sale_id IS '售电公司id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sale IS '售电公司名';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sale_extra_id IS '售电公司外部id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.application IS '应用';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.tenant_id IS '租户ID';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.create_time IS '创建时间';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.create_user IS '创建者';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.create_user_account IS '创建者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.create_user_name IS '创建者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.update_user IS '更新者';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.update_user_account IS '更新者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.update_user_name IS '更新者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.deleted IS '是否删除，0否 1是';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sale_allo_id IS '对应售电分配id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.contract_customer IS '零售侧合同id';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.sale_price IS '绿电结算电价';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.grew_project_name IS '机组项目编码';
+COMMENT ON COLUMN public.tl_greenele_allo_generationallo_data.marker_id IS '场景（省份）';
+
+CREATE TABLE public.tl_greenele_co_seller_contractinfo (
+	guid varchar(100) NOT NULL, -- 零售合同分月数据主键ID
+	contract_id varchar(100) NULL, -- 合同ID(批发合同ID)
+	market_id varchar(100) NULL, -- 场景
+	seller_id varchar(100) NULL, -- 售方ID(发电企业ID)
+	buy_id varchar(100) NULL, -- 购方ID(售电企业ID)
+	start_date timestamp NULL, -- 合同开始时间
+	end_date timestamp NULL, -- 合同结束时间
+	trade_timepart varchar(10) NULL, -- 时段
+	timepart_name varchar(50) NULL, -- 时段名称
+	timepart_starttime timestamp NULL, -- 时段开始时间
+	timepart_endtime timestamp NULL, -- 时段结束时间
+	qty varchar(50) NULL, -- 电量
+	update_time timestamp NULL, -- 更新时间
+	update_person varchar(100) NULL, -- 更新人
+	approve_option varchar(200) NULL, -- 意见
+	file_id varchar(50) NULL, -- 文件id
+	contract_type varchar(10) NULL, -- 合同类型:01=批发合同,02=转让合同
+	start_role varchar(10) NULL, -- 发起方:1=购方,2=售方
+	start_member_id varchar(100) NULL, -- 发起方市场成员id
+	members_id varchar(50) NULL, -- 发电企业id
+	members_name varchar(100) NULL, -- 发电企业名称
+	granularity varchar(10) NULL, -- 粒度:0=分解到零售用户,1=分解到零售用户的交易单元
+	"year" int4 NULL, -- 年份
+	"month" int4 NULL, -- 月份
+	create_time timestamp NULL, -- 创建时间
+	data_type varchar(10) NULL, -- 数据类型:1=省间交易,2=省内交易
+	CONSTRAINT tl_greenele_co_seller_contracinfo_pk PRIMARY KEY (guid)
+);
+COMMENT ON TABLE public.tl_greenele_co_seller_contractinfo IS '零售合同分月数据表';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.guid IS '零售合同分月数据主键ID';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.contract_id IS '合同ID(批发合同ID)';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.market_id IS '场景';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.seller_id IS '售方ID(发电企业ID)';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.buy_id IS '购方ID(售电企业ID)';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.start_date IS '合同开始时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.end_date IS '合同结束时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.trade_timepart IS '时段';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.timepart_name IS '时段名称';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.timepart_starttime IS '时段开始时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.timepart_endtime IS '时段结束时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.qty IS '电量';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.update_person IS '更新人';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.approve_option IS '意见';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.file_id IS '文件id';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.contract_type IS '合同类型:01=批发合同,02=转让合同';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.start_role IS '发起方:1=购方,2=售方';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.start_member_id IS '发起方市场成员id';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.members_id IS '发电企业id';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.members_name IS '发电企业名称';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.granularity IS '粒度:0=分解到零售用户,1=分解到零售用户的交易单元';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo."year" IS '年份';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo."month" IS '月份';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.create_time IS '创建时间';
+COMMENT ON COLUMN public.tl_greenele_co_seller_contractinfo.data_type IS '数据类型:1=省间交易,2=省内交易';
+
+-- public.tl_greenele_allo_main definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_allo_main;
+
+CREATE TABLE public.tl_greenele_allo_main (
+	"year" int4 NULL, -- 年份
+	"month" int4 NULL, -- 月份
+	settlement_n1 numeric(22, 6) NULL, -- N-1月结算剩余电量
+	settlement_n numeric(22, 6) NULL, -- N月结算数据
+	settlement_all numeric(22, 6) NULL, -- N月可用累计结算电量
+	settlement_last numeric(22, 6) NULL, -- N月剩余可用用结算电量
+	sale_id varchar(64) NULL, -- 售电公司id
+	sale varchar(128) NULL, -- 售电公司名
+	sale_extra_id varchar(64) NULL, -- 售电公司外部id
+	sale_num varchar(60) NULL, -- 交易序列
+	generation_id varchar(64) NULL, -- 发电企业id
+	generation varchar(128) NULL, -- 发电企业名
+	generation_extra_id varchar(64) NULL, -- 发电企业外部id
+	contract_sale varchar(255) NULL, -- 批发侧合同id
+	contract_customer text NULL DEFAULT '''''''''''::text''::text'::text, -- 零售侧合同id
+	status varchar(2) NULL DEFAULT '''0''::character varying'::character varying, -- 状态
+	sale_ele_all numeric(22, 6) NULL, -- 批发侧交易电量
+	sale_ele_avaliable numeric(22, 6) NULL, -- 剩余批发侧可分配电量
+	sale_ele_allo numeric(22, 6) NULL, -- 本月发电企业已分配电量
+	sale_ele_last numeric(22, 6) NULL, -- 批发侧剩余交易电量
+	n_last numeric(22, 6) NULL, -- N月剩余需结算电量
+	n_accumulation numeric(22, 6) NULL, -- N月可用累计结算电量
+	n_settlement numeric(22, 6) NULL, -- N月结算数据
+	n1_last numeric(22, 6) NULL, -- N-1月结算剩余电量
+	application varchar(255) NULL, -- 应用
+	tenant_id int4 NULL, -- 租户ID
+	create_time timestamp NULL, -- 创建时间
+	create_user varchar(100) NULL, -- 创建者
+	create_user_account varchar NULL, -- 创建者账号
+	create_user_name varchar NULL, -- 创建者姓名
+	update_time timestamp NULL, -- 更新时间
+	update_user varchar(100) NULL, -- 更新者
+	update_user_account varchar NULL, -- 更新者账号
+	update_user_name varchar NULL, -- 更新者姓名
+	deleted int2 NULL DEFAULT 0, -- 是否删除，0否 1是
+	sale_ele_prise numeric NULL, -- 批发侧交易电价
+	allo_id int8 NOT NULL,
+	status2 varchar(2) NULL DEFAULT '0'::character varying, -- 状态2
+	CONSTRAINT pk_zjpxprod_tl_greenele_allo_main PRIMARY KEY (allo_id)
+);
+COMMENT ON TABLE public.tl_greenele_allo_main IS '售电公司合同分配';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_allo_main."year" IS '年份';
+COMMENT ON COLUMN public.tl_greenele_allo_main."month" IS '月份';
+COMMENT ON COLUMN public.tl_greenele_allo_main.settlement_n1 IS 'N-1月结算剩余电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.settlement_n IS 'N月结算数据';
+COMMENT ON COLUMN public.tl_greenele_allo_main.settlement_all IS 'N月可用累计结算电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.settlement_last IS 'N月剩余可用用结算电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_id IS '售电公司id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale IS '售电公司名';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_extra_id IS '售电公司外部id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_num IS '交易序列';
+COMMENT ON COLUMN public.tl_greenele_allo_main.generation_id IS '发电企业id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.generation IS '发电企业名';
+COMMENT ON COLUMN public.tl_greenele_allo_main.generation_extra_id IS '发电企业外部id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.contract_sale IS '批发侧合同id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.contract_customer IS '零售侧合同id';
+COMMENT ON COLUMN public.tl_greenele_allo_main.status IS '状态';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_ele_all IS '批发侧交易电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_ele_avaliable IS '剩余批发侧可分配电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_ele_allo IS '本月发电企业已分配电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_ele_last IS '批发侧剩余交易电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.n_last IS 'N月剩余需结算电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.n_accumulation IS 'N月可用累计结算电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.n_settlement IS 'N月结算数据';
+COMMENT ON COLUMN public.tl_greenele_allo_main.n1_last IS 'N-1月结算剩余电量';
+COMMENT ON COLUMN public.tl_greenele_allo_main.application IS '应用';
+COMMENT ON COLUMN public.tl_greenele_allo_main.tenant_id IS '租户ID';
+COMMENT ON COLUMN public.tl_greenele_allo_main.create_time IS '创建时间';
+COMMENT ON COLUMN public.tl_greenele_allo_main.create_user IS '创建者';
+COMMENT ON COLUMN public.tl_greenele_allo_main.create_user_account IS '创建者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_main.create_user_name IS '创建者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_main.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_allo_main.update_user IS '更新者';
+COMMENT ON COLUMN public.tl_greenele_allo_main.update_user_account IS '更新者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_main.update_user_name IS '更新者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_main.deleted IS '是否删除，0否 1是';
+COMMENT ON COLUMN public.tl_greenele_allo_main.sale_ele_prise IS '批发侧交易电价';
+COMMENT ON COLUMN public.tl_greenele_allo_main.status2 IS '状态2';
+
+-- public.tl_greenele_co_userdetail_daypart definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_co_userdetail_daypart;
+
+CREATE TABLE public.tl_greenele_co_userdetail_daypart (
+	guid varchar(100) NOT NULL, -- 主键ID
+	userdetail_id varchar(100) NULL, -- 零售用户主表(零售合同ID)
+	contract_id varchar(100) NULL, -- 合同ID(批发合同ID)
+	member_id varchar(100) NULL, -- 市场成员id(零售用户id)
+	member_name varchar(100) NULL, -- 市场成员名称(零售用户名称)
+	start_date timestamp NULL, -- 分月开始时间
+	end_date timestamp NULL, -- 分月结束时间
+	marketing_user_id varchar(100) NULL, -- 营销户号
+	marketing_user_name varchar(100) NULL, -- 用户名
+	time_division_code varchar(100) NULL, -- 时段编号
+	time_division_name varchar(100) NULL, -- 时段名称
+	time_division_range varchar(100) NULL, -- 时段划分区间
+	qty numeric(16, 2) NULL, -- 电量
+	update_time timestamp NULL, -- 更新时间
+	update_person varchar(100) NULL, -- 更新人
+	transaction_id varchar(100) NULL, -- 交易序列ID
+	CONSTRAINT tl_greenele_co_userdetail_daypart_pk PRIMARY KEY (guid)
+);
+COMMENT ON TABLE public.tl_greenele_co_userdetail_daypart IS '用户分月电量明细审核表';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.guid IS '主键ID';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.userdetail_id IS '零售用户主表(零售合同ID)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.contract_id IS '合同ID(批发合同ID)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.member_id IS '市场成员id(零售用户id)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.member_name IS '市场成员名称(零售用户名称)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.start_date IS '分月开始时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.end_date IS '分月结束时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.marketing_user_id IS '营销户号';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.marketing_user_name IS '用户名';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.time_division_code IS '时段编号';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.time_division_name IS '时段名称';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.time_division_range IS '时段划分区间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.qty IS '电量';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.update_person IS '更新人';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail_daypart.transaction_id IS '交易序列ID';
+
+-- public.tl_greenele_allo_saleallo definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_allo_saleallo;
+
+CREATE TABLE public.tl_greenele_allo_saleallo (
+	"year" int4 NULL, -- 年份
+	"month" int4 NULL, -- 月份
+	guid varchar(255) NULL,
+	marker_id varchar(10) NULL, -- 省份
+	participant_num varchar(20) NULL, -- 零售用户户号
+	participant_id varchar(64) NULL, -- 零售用户市场成员ID
+	participant_name varchar(128) NULL, -- 零售用户市场成员名称
+	sale_data_id int8 NULL, -- 售电公司（原始表）id
+	entrusted_time varchar(64) NULL, -- 交易委托期限
+	participant_extra_id varchar(64) NULL, -- 零售用户市场成员外部ID
+	sale_id varchar(64) NULL, -- 售电公司id
+	sale varchar(128) NULL, -- 售电公司名
+	sale_extra_id varchar(64) NULL, -- 售电公司外部id
+	tradeseq_id varchar(64) NULL,
+	contract_id varchar(255) NULL, -- 零售合同ID
+	sub_id varchar(10) NULL, -- 结算科目ID
+	"period" varchar(10) NULL, -- period
+	is_green_type varchar(2) NULL, -- 是否绿电
+	energy numeric(22, 6) NULL, -- 电量
+	price numeric(22, 6) NULL, -- 电价
+	fee numeric(22, 6) NULL, -- 电费
+	status varchar(2) NULL DEFAULT '''0''::bpchar'::character varying, -- 状态
+	area varchar(10) NULL, -- 区域
+	application varchar(255) NULL, -- 应用
+	tenant_id int4 NULL, -- 租户ID
+	create_time timestamp NULL, -- 创建时间
+	create_user varchar(100) NULL, -- 创建者
+	create_user_account varchar NULL, -- 创建者账号
+	create_user_name varchar NULL, -- 创建者姓名
+	update_time timestamp NULL, -- 更新时间
+	update_user varchar(100) NULL, -- 更新者
+	update_user_account varchar NULL, -- 更新者账号
+	update_user_name varchar NULL, -- 更新者姓名
+	deleted int2 NULL DEFAULT 0, -- 是否删除，0否 1是
+	sale_allo_id int8 NOT NULL,
+	contract_sale varchar(255) NULL, -- 批发侧合同id
+	data_type varchar(10) NULL, -- 数据类别:1=省间交易,2=省内交易
+	CONSTRAINT pk_zjpxprod_tl_greenele_allo_saleallo PRIMARY KEY (sale_allo_id)
+);
+COMMENT ON TABLE public.tl_greenele_allo_saleallo IS '售电公司分配';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo."year" IS '年份';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo."month" IS '月份';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.marker_id IS '省份';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.participant_num IS '零售用户户号';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.participant_id IS '零售用户市场成员ID';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.participant_name IS '零售用户市场成员名称';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.sale_data_id IS '售电公司（原始表）id';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.entrusted_time IS '交易委托期限';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.participant_extra_id IS '零售用户市场成员外部ID';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.sale_id IS '售电公司id';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.sale IS '售电公司名';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.sale_extra_id IS '售电公司外部id';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.contract_id IS '零售合同ID';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.sub_id IS '结算科目ID';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo."period" IS 'period';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.is_green_type IS '是否绿电';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.energy IS '电量';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.price IS '电价';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.fee IS '电费';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.status IS '状态';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.area IS '区域';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.application IS '应用';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.tenant_id IS '租户ID';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.create_time IS '创建时间';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.create_user IS '创建者';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.create_user_account IS '创建者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.create_user_name IS '创建者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.update_user IS '更新者';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.update_user_account IS '更新者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.update_user_name IS '更新者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.deleted IS '是否删除，0否 1是';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.contract_sale IS '批发侧合同id';
+COMMENT ON COLUMN public.tl_greenele_allo_saleallo.data_type IS '数据类别:1=省间交易,2=省内交易';
+
+-- public.tl_greenele_co_userdetail definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_co_userdetail;
+
+CREATE TABLE public.tl_greenele_co_userdetail (
+	guid varchar(100) NOT NULL, -- 主键ID(零售合同ID)
+	contract_seller_id varchar(100) NULL, -- 合同分月数据表ID
+	contract_id varchar(100) NULL, -- 合同ID(批发合同ID)
+	start_date timestamp NULL, -- 合同开始时间(零售合同开始时间)
+	end_date timestamp NULL, -- 合同结束时间(零售合同结束时间)
+	member_id varchar(100) NULL, -- 市场成员ID(subject_type为0时,存放的是用户市场成员ID)
+	cons_no varchar(100) NULL, -- 用户编号(户号)
+	point_id varchar(100) NULL, -- 计量点ID
+	update_time timestamp NULL, -- 更新时间
+	update_person varchar(100) NULL, -- 更新人
+	qty numeric(16, 2) NULL, -- 电量
+	trade_timepart varchar(50) NULL, -- 时段
+	timepart_name varchar(100) NULL, -- 时段名称
+	timepart_starttime timestamp NULL, -- 时段开始时间
+	timepart_endtime timestamp NULL, -- 时段结束时间
+	contract_price numeric(16, 2) NULL, -- 合同价格
+	proxy_price numeric(16, 2) NULL, -- 代理服务价格
+	deal_price numeric(16, 2) NULL, -- 价差成交价格
+	subject_type varchar(50) NULL, -- 主体类型(默认为0:用户)
+	member_name varchar(50) NULL, -- 零售用户名称
+	is_lock int4 NULL, -- 是否解锁:0=否,1=是
+	time_division_range varchar(100) NULL, -- 时段划分区间
+	jydy_id varchar(50) NULL, -- 交易单元id
+	jydy_name varchar(50) NULL, -- 交易单元名称
+	confirm_status varchar(10) NULL, -- 确认状态(天津):1或空=售电公司待发布,2=零售用户待确认,3=零售用户已确认,4=零售用户驳回
+	return_reason varchar(200) NULL, -- 驳回原因(天津)
+	CONSTRAINT tl_greenele_co_userdetail_pk PRIMARY KEY (guid)
+);
+COMMENT ON TABLE public.tl_greenele_co_userdetail IS '用户分月电量明细审核表';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.guid IS '主键ID(零售合同ID)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.contract_seller_id IS '合同分月数据表ID';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.contract_id IS '合同ID(批发合同ID)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.start_date IS '合同开始时间(零售合同开始时间)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.end_date IS '合同结束时间(零售合同结束时间)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.member_id IS '市场成员ID(subject_type为0时,存放的是用户市场成员ID)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.cons_no IS '用户编号(户号)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.point_id IS '计量点ID';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.update_person IS '更新人';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.qty IS '电量';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.trade_timepart IS '时段';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.timepart_name IS '时段名称';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.timepart_starttime IS '时段开始时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.timepart_endtime IS '时段结束时间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.contract_price IS '合同价格';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.proxy_price IS '代理服务价格';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.deal_price IS '价差成交价格';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.subject_type IS '主体类型(默认为0:用户)';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.member_name IS '零售用户名称';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.is_lock IS '是否解锁:0=否,1=是';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.time_division_range IS '时段划分区间';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.jydy_id IS '交易单元id';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.jydy_name IS '交易单元名称';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.confirm_status IS '确认状态(天津):1或空=售电公司待发布,2=零售用户待确认,3=零售用户已确认,4=零售用户驳回';
+COMMENT ON COLUMN public.tl_greenele_co_userdetail.return_reason IS '驳回原因(天津)';
+
+-- public.tl_greenele_allo_pms_customerele_data definition
+
+-- Drop table
+
+-- DROP TABLE public.tl_greenele_allo_pms_customerele_data;
+
+CREATE TABLE public.tl_greenele_allo_pms_customerele_data (
+	application varchar(255) NULL, -- 应用
+	tenant_id int4 NULL, -- 租户ID
+	create_time timestamp NULL, -- 创建时间
+	create_user varchar(100) NULL, -- 创建者
+	create_user_account varchar NULL, -- 创建者账号
+	create_user_name varchar NULL, -- 创建者姓名
+	update_time timestamp NULL, -- 更新时间
+	update_user varchar(100) NULL, -- 更新者
+	update_user_account varchar NULL, -- 更新者账号
+	update_user_name varchar NULL, -- 更新者姓名
+	deleted int2 NULL DEFAULT 0, -- 是否删除，0否 1是
+	data_id int8 NOT NULL,
+	amt_ym timestamp NULL, -- 电费年月
+	participantid varchar(255) NULL, -- 市场成员id
+	participantname varchar(255) NULL, -- 市场成员名称（售电公司名称）
+	energy_type varchar(255) NULL, -- 电量类型
+	err_ym varchar(255) NULL, -- 差错年月
+	cons_no varchar(255) NULL, -- 用户编号
+	cons_name varchar(255) NULL, -- 用户名称
+	org_no varchar(255) NULL, -- 供电单位
+	this_read_pq int8 NULL, -- 总电量
+	energy_s int8 NULL, -- 尖峰电量
+	energy_p int8 NULL, -- 高峰电量
+	energy_f int8 NULL, -- 平电量
+	energy_b int8 NULL, -- 低谷电量
+	this_amt numeric(22, 2) NULL, -- 总电费
+	amt_s numeric(22, 2) NULL, -- 尖峰电费
+	amt_p numeric(22, 2) NULL, -- 高峰电费
+	amt_f numeric(22, 2) NULL, -- 平电费
+	amt_b numeric(22, 2) NULL, -- 低谷电费
+	deregattr_type varchar(255) NULL, -- 市场化属性分类
+	CONSTRAINT pk_zjpxprod_tl_greenele_allo_pms_customerele_data PRIMARY KEY (data_id)
+);
+COMMENT ON TABLE public.tl_greenele_allo_pms_customerele_data IS 'pms2.0绿电用户结算数据';
+
+-- Column comments
+
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.application IS '应用';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.tenant_id IS '租户ID';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.create_time IS '创建时间';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.create_user IS '创建者';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.create_user_account IS '创建者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.create_user_name IS '创建者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.update_time IS '更新时间';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.update_user IS '更新者';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.update_user_account IS '更新者账号';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.update_user_name IS '更新者姓名';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.deleted IS '是否删除，0否 1是';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.amt_ym IS '电费年月';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.participantid IS '市场成员id';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.participantname IS '市场成员名称（售电公司名称）';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.energy_type IS '电量类型';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.err_ym IS '差错年月';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.cons_no IS '用户编号';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.cons_name IS '用户名称';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.org_no IS '供电单位';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.this_read_pq IS '总电量';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.energy_s IS '尖峰电量';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.energy_p IS '高峰电量';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.energy_f IS '平电量';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.energy_b IS '低谷电量';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.this_amt IS '总电费';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.amt_s IS '尖峰电费';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.amt_p IS '高峰电费';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.amt_f IS '平电费';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.amt_b IS '低谷电费';
+COMMENT ON COLUMN public.tl_greenele_allo_pms_customerele_data.deregattr_type IS '市场化属性分类';
+
+create view vls_greenele_transaction_record as SELECT tcsc.contract_id as tradeId,
+tgam.sale_ele_prise as tradePrice,
+tgam.sale_ele_all as tradeNum,
+tcsc.start_date as tradeTime,
+tgam.sale_extra_id as buyersId,
+tgam.sale as buyersName,
+tgam.generation_extra_id as sellerId,
+tgam.generation as sellerName,
+tgam.deleted as isDel
+FROM tl_greenele_co_seller_contractinfo tcsc
+left join tl_greenele_allo_main tgam on tcsc.contract_id = tgam.contract_sale 
+union all
+SELECT tcud.userdetail_id as tradeId,
+tcu.contract_price as tradePrice,
+tgas.energy as tradeNum,
+tcu.start_date as tradeTime,
+tgas.participant_id  as buyersId,
+tgas.participant_name  as buyersName,
+tgas.sale_extra_id  as sellerId,
+tgas.sale  as sellerName,
+tgas.deleted as isDel
+FROM tl_greenele_co_userdetail_daypart tcud
+left join tl_greenele_allo_saleallo tgas on tcud.userdetail_id = tgas.contract_sale 
+left join tl_greenele_co_userdetail tcu on tcud.userdetail_id = tcu.guid;
+
+
+
+create view vls_greenele_contract_info as SELECT tcsc.contract_id as contractId,
+'无' as contractName,
+'批发合同' as contractType,
+(tcsc.start_date || '-' || tcsc.end_date) as contractCycle,
+tgam.sale_ele_all as contractEnergy,
+tgam.deleted as isDel
+FROM tl_greenele_co_seller_contractinfo tcsc
+left join tl_greenele_allo_main tgam on tcsc.contract_id = tgam.contract_sale 
+union all
+SELECT tcud.userdetail_id as contractId,
+'无' as contractName,
+'零售合同' as contractType,
+(tcud.start_date || '-' || tcud.end_date) as contractCycle,
+tcud.qty as contractEnergy,
+tgas.deleted as isDel
+FROM tl_greenele_co_userdetail_daypart tcud
+left join tl_greenele_allo_saleallo tgas on tcud.userdetail_id = tgas.contract_sale ;
+
+
+
+create view vls_greenele_settle_info as SELECT tcsc.contract_id as tradeId,
+(tgam.year || '-' || tgam.month) as settlementMonth,
+tgam.settlement_n * tgam.sale_ele_prise as settlementCost,
+tgam.settlement_n as settlementEnergy,
+tgas.energy as num,
+tgam.deleted as isDel,
+tgagd.grew_id as grewId,
+tgagd.grew_name as grewName
+FROM tl_greenele_co_seller_contractinfo tcsc
+left join tl_greenele_allo_main tgam on tcsc.contract_id = tgam.contract_sale 
+left join tl_greenele_allo_saleallo tgas on tcsc.contract_id = tgas.contract_sale 
+left join tl_greenele_allo_generationallo_data tgagd on tcsc.contract_id = tgagd.contract_sale
+union all
+SELECT tcud.contract_id as tradeId,
+(tgap.amt_ym || '') as settlementMonth,
+tgap.this_amt as settlementCost,
+tgap.this_read_pq as settlementEnergy,
+tgas.energy as num,
+tgap.deleted as isDel,
+tgagd.grew_id as grewId,
+tgagd.grew_name as grewName
+FROM tl_greenele_co_userdetail_daypart tcud
+left join tl_greenele_allo_pms_customerele_data tgap 
+on tcud.marketing_user_id = tgap.cons_no and tcud.start_date = tgap.amt_ym
+left join tl_greenele_allo_saleallo tgas on tcud.userdetail_id = tgas.contract_id 
+left join tl_greenele_allo_generationallo_data tgagd on tcud.userdetail_id = tgagd.contract_customer;
+COMMENT ON VIEW public.vls_greenele_settle_info IS '结算信息';
+
+
+COMMENT ON COLUMN public.vls_greenele_transaction_record.tradeid IS '合同ID';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.tradeprice IS '成交价';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.tradenum IS '交易数量';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.tradetime IS '交易时间';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.buyersid IS '买方企业唯一编号';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.buyersname IS '买方企业名称';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.sellerid IS '卖方企业唯一编号';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.sellername IS '卖方企业名称';
+COMMENT ON COLUMN public.vls_greenele_transaction_record.isdel IS '是否删除';
+
+
+
+COMMENT ON COLUMN public.vls_greenele_contract_info.contractid IS '合同ID';
+COMMENT ON COLUMN public.vls_greenele_contract_info.contractname IS '合同名称';
+COMMENT ON COLUMN public.vls_greenele_contract_info.contractcycle IS '合同周期';
+COMMENT ON COLUMN public.vls_greenele_contract_info.contracttype IS '合同类型';
+COMMENT ON COLUMN public.vls_greenele_contract_info.contractenergy IS '合同电量';
+COMMENT ON COLUMN public.vls_greenele_contract_info.isdel IS '是否删除';
+
+COMMENT ON COLUMN public.vls_greenele_settle_info.tradeid IS '合同ID';
+COMMENT ON COLUMN public.vls_greenele_settle_info.settlementmonth IS '结算月份';
+COMMENT ON COLUMN public.vls_greenele_settle_info.settlementcost IS '结算费用';
+COMMENT ON COLUMN public.vls_greenele_settle_info.settlementenergy IS '结算电量';
+COMMENT ON COLUMN public.vls_greenele_settle_info.num IS '已发绿证数量';
+COMMENT ON COLUMN public.vls_greenele_settle_info.isdel IS '是否删除';
+COMMENT ON COLUMN public.vls_greenele_settle_info.grewid IS '机组ID';
